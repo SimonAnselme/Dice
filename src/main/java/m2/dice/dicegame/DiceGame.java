@@ -20,6 +20,7 @@ import m2.dice.player.PlayerI;
 public class DiceGame extends Observable {
 	private HighScoreI hs;
 
+	// Un seul dice
 	private DieI d;
 
 	private PlayerI p;
