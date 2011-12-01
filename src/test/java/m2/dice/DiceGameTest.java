@@ -4,8 +4,7 @@
 package m2.dice;
 
 import junit.framework.TestCase;
-import m2.dice.dice.DieMock3;
-import m2.dice.dice.DieMock4;
+import m2.dice.dice.DieMock;
 import m2.dice.dicegame.DiceGame;
 import m2.dice.hs.HighScoreMock;
 import m2.dice.player.Player;
@@ -45,8 +44,8 @@ public class DiceGameTest extends TestCase {
 	 * Test method for {@link dicegame.DiceGame#play()}.
 	 */
 	public void testPlay() {
-		DiceGame dg = new DiceGame(new HighScoreMock(), new DieMock3(),
-				new DieMock4(), new Player("momo"));
+		DiceGame dg = new DiceGame(new HighScoreMock(), new DieMock(),
+				new Player("momo"));
 
 		dg.play();
 
@@ -55,14 +54,14 @@ public class DiceGameTest extends TestCase {
 	}
 
 	public void testHs() {
-		DiceGame dg = new DiceGame(new HighScoreMock(), new DieMock3(),
-				new DieMock4(), new Player("momo"));
+		DiceGame dg = new DiceGame(new HighScoreMock(), new DieMock(),
+				new Player("momo"));
 
 		for (int i = 0; i < 10; i++) {
 			dg.play();
 		}
 		assertEquals("turn =10", dg.turn, 10);
-		
+
 	}
 
 }

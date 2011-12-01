@@ -24,7 +24,6 @@ import org.junit.Test;
  */
 public class MockGameTest extends TestCase {
 
-
 	/**
 	 * @throws java.lang.Exception
 	 */
@@ -42,22 +41,18 @@ public class MockGameTest extends TestCase {
 	 */
 	public void testPlay() {
 
-		DieI demock1 = createMock(DieI.class);
-		expect(demock1.roll()).andReturn((int) 3);
-		replay(demock1);
+		DieI demock = createMock(DieI.class);
+		expect(demock.roll()).andReturn((int) 3);
+		expect(demock.roll()).andReturn((int) 4);
+		replay(demock);
 
-		DieI demock2 = createMock(DieI.class);
-		expect(demock2.roll()).andReturn((int)4);
-		replay(demock2);
-
-		DiceGame dg = new DiceGame(null, demock1, demock2, new Player("momo"));
+		DiceGame dg = new DiceGame(null, demock, new Player("momo"));
 
 		dg.play();
-		assertTrue("turn=1",dg.turn==1);
-		assertTrue("Score=10", dg.getPlayer().getScore()==10);
+		assertTrue("turn=1", dg.turn == 1);
+		assertTrue("Score=10", dg.getPlayer().getScore() == 10);
 
-		verify(demock1);
-		verify(demock2);
+		verify(demock);
 	}
 
 }

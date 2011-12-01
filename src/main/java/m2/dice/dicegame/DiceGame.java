@@ -17,31 +17,23 @@ import m2.dice.hs.Entry;
 import m2.dice.hs.HighScoreI;
 import m2.dice.player.PlayerI;
 
-
 public class DiceGame extends Observable {
 	private HighScoreI hs;
 
-	private DieI d1;
-
-	private DieI d2;
+	private DieI d;
 
 	private PlayerI p;
 
 	public int turn = 0;
 
-	public DiceGame(HighScoreI hs, DieI d1, DieI d2, PlayerI p) {
+	public DiceGame(HighScoreI hs, DieI d, PlayerI p) {
 		this.hs = hs;
-		this.d1 = d1;
-		this.d2 = d2;
+		this.d = d;
 		this.p = p;
 	}
 
-	public DieI getD1() {
-		return d1;
-	}
-
-	public DieI getD2() {
-		return d2;
+	public DieI getD() {
+		return d;
 	}
 
 	public PlayerI getPlayer() {
@@ -50,19 +42,19 @@ public class DiceGame extends Observable {
 
 	public void play() {
 		if (turn < 10) {
-			if (d1.roll() + d2.roll() == 7) {
+			if (d.roll() + d.roll() == 7) {
 				p.setScore(p.getScore() + 10);
 			}
 			turn++;
-			if (turn==10) {
-				hs.add(new Entry(p.getName(),p.getScore()));
+			if (turn == 10) {
+				hs.add(new Entry(p.getName(), p.getScore()));
 			}
 			this.setChanged();
 			this.notifyObservers();
 		}
 	}
-	
-	class DiceGameController extends JButton implements Observer{
+
+	class DiceGameController extends JButton implements Observer {
 
 		public DiceGameController() {
 			this.setText("play");
@@ -72,26 +64,25 @@ public class DiceGame extends Observable {
 				}
 			});
 		}
-		
+
 		public void update(Observable o, Object arg) {
-			this.setText("Play : Turn:"+turn);
-			this.setEnabled(turn<10);
+			this.setText("Play : Turn:" + turn);
+			this.setEnabled(turn < 10);
 		}
-		
+
 	}
-	
-	
+
 	public JComponent display() {
-		JPanel jp=new JPanel();
+		JPanel jp = new JPanel();
 		jp.setLayout(new BorderLayout());
-		jp.add(BorderLayout.EAST,d1.display());
-		jp.add(BorderLayout.WEST,d2.display());
-		jp.add(BorderLayout.SOUTH,p.display());
-		jp.add(BorderLayout.CENTER,hs.display());
-		
-		DiceGameController dgc=new DiceGameController();
+		jp.add(BorderLayout.EAST, d.display());
+		jp.add(BorderLayout.WEST, d.display());
+		jp.add(BorderLayout.SOUTH, p.display());
+		jp.add(BorderLayout.CENTER, hs.display());
+
+		DiceGameController dgc = new DiceGameController();
 		this.addObserver(dgc);
-		jp.add(BorderLayout.NORTH,dgc);
+		jp.add(BorderLayout.NORTH, dgc);
 		return jp;
 	}
 
