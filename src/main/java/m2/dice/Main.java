@@ -15,6 +15,7 @@ import m2.dice.player.PlayerI;
 
 class Main {
 
+	// lalalalalala
 	/**
 	 * @throws ClassNotFoundException
 	 * @throws IllegalAccessException
